@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { loginApi } from '@/api/login'
+import { loginApi } from '@/api/user'
 
 export default {
   data () {

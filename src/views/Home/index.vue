@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { swiper } from '@/api/home'
+import { getSwiperApi } from '@/api/home'
 
 export default {
 
@@ -25,7 +25,7 @@ export default {
     }
   },
   async created () {
-    const res = await swiper()
+    const res = await getSwiperApi()
     console.log(res.data.body)
     this.swipe = res.data.body
   }
