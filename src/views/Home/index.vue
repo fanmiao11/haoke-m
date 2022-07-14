@@ -1,10 +1,13 @@
 <template>
   <div>
+    home页面
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item
+      <!-- <van-swipe-item
       v-for="item in swipe"
       :key="item.id"
-       ><img :src="`http://liufusong.top:8080${item.imgSrc}`" /></van-swipe-item>
+       >
+       <img :src="`http://liufusong.top:8080${item.imgSrc}`" />
+       </van-swipe-item> -->
 
     </van-swipe>
   </div>

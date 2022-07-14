@@ -32,24 +32,26 @@ export default {
       this.$router.back()
     },
     async loginFn () {
-      // const usernameRegExp = `/^[a-zA-Z0-9]{5,8}$/`
-      // const passwordRegExp = '/^[a-zA-Z0-9]{5,12}$/'
+      const usernameRegExp = /^[a-zA-Z0-9]{5,8}$/
+      const passwordRegExp = /^[a-zA-Z0-9]{5,12}$/
       //   console.log('submit', values)
       if (this.username.trim() === '' || this.password.trim() === '') {
         this.$toast('用户名和密码不能为空')
-      } else if (!/^[a-zA-Z0-9]{5,8}$/.test(this.username)) {
+      } else if (!usernameRegExp.test(this.username)) {
         this.toast('用户名格式5-8位的字母和数字')
-      } else if (!/^[a-zA-Z0-9]{5,12}$/.test(this.password)) {
+      } else if (!passwordRegExp.test(this.password)) {
         this.toast('密码格式5-12位的字母和数字')
-      } else {
+      } else if (usernameRegExp.test(this.username) && passwordRegExp.test(this.password)) {
         this.$toast.loading({ message: '加载中...', forbidClick: true })
         const res = await loginApi(this.username, this.password)
-        console.log(res)
+        // console.log(res)
         if (res.status === 200) {
+          // 存入token
+          localStorage.setItem('HAOKE_USER', JSON.stringify(res.data.body))
           this.$toast.success({
             onClose: () => {
               this.$router.push({
-                path: '/my'
+                path: '/layout/my'
               })
               // console.log(111);
             },
@@ -63,10 +65,6 @@ export default {
         }
       }
     }
-  },
-  async created () {
-    const res = await loginApi('hzhmqd', '123456')
-    console.log(res)
   }
 }
 </script>
