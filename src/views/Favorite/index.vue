@@ -8,7 +8,7 @@
       finished-text="没有更多了"
       @load="onLoad"
     >
-    <HouseList v-for="(item,index) in houseList" :key="index" :body="item" @click="toDetailsFn(item.houseCode)"></HouseList>
+    <HouseList v-for="(item,index) in houseList" :key="index" :body="item" ></HouseList>
       <!-- <van-cell class="HouseItem_house" v-for="(item,index) in houseList" :key="index">
         <div class="HouseItem_imgWrap">
           <img :src="`${BASE_URL}${item.houseImg}`" />
@@ -48,7 +48,7 @@ export default {
     try {
       const token = this.$store.state.user.token
       const res = await getFavoritesApi(token)
-      console.log(res)
+      // console.log(res)
       this.houseList = res.data.body
     } catch (e) {
       console.log(e)
@@ -59,12 +59,8 @@ export default {
     backPrePage () {
       this.$router.back()
     },
-    onLoad () {},
-    toDetailsFn (code) {
-      this.$router.push({
+    onLoad () {}
 
-      })
-    }
   }
 }
 </script>

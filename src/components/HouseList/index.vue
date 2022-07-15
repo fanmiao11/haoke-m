@@ -1,5 +1,5 @@
 <template>
-  <van-cell class="HouseItem_house">
+  <van-cell class="HouseItem_house" @click="toDetailsFn(body.houseCode)">
     <div class="HouseItem_imgWrap">
       <img :src="`${BASE_URL}${body.houseImg}`" />
     </div>
@@ -34,6 +34,14 @@ export default {
   data () {
     return {
       BASE_URL
+    }
+  },
+  methods: {
+    toDetailsFn (code) {
+      this.$router.push({
+        name: 'detail',
+        params: { code }
+      })
     }
   }
 }
