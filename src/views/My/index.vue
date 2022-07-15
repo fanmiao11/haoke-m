@@ -1,12 +1,12 @@
 <template>
   <div class="my">
     <div class="My_title">
-      <img style="width: 100%" :src="`http://liufusong.top:8080${avatar}`" />
+      <img style="width: 100%" :src="`http://liufusong.top:8080${bg}`" />
       <div class="My_info">
         <div class="My_icon">
           <van-image
             round
-            src="http://liufusong.top:8080/img/profile/avatar.png"
+            :src="`http://liufusong.top:8080${avatar}`"
           />
         </div>
         <!-- status=0 未登录 -->
@@ -15,8 +15,7 @@
           <div class="My_btn">
             <van-button size="mini" class="user_btn" type="primary" to="/login">
               去登录
-              </van-button
-            >
+            </van-button>
           </div>
         </div>
         <div class="My_user" v-else>
@@ -27,6 +26,7 @@
               class="user_btn_out"
               type="primary"
               to="/login"
+              @click="$store.commit('removeUser')"
               >退出</van-button
             >
           </div>
@@ -39,7 +39,11 @@
 
     <div class="am-grid">
       <van-grid clickable :column-num="3">
-        <van-grid-item to="/" icon="star-o" text="我的收藏" />
+        <van-grid-item
+          :to="status === 0 ? '/login' : '/favorite'"
+          icon="star-o"
+          text="我的收藏"
+        />
         <van-grid-item to="/" icon="wap-home-o" text="我的出租" />
         <van-grid-item to="/" icon="underway-o" text="看房记录" />
         <van-grid-item to="/" icon="credit-pay" text="成为房主" />
@@ -60,18 +64,26 @@ export default {
   data () {
     return {
       status: 0, // 0未登录 1登录
+      bg: '/img/profile/bg.png',
       avatar: '/img/profile/bg.png', // 背景图
+
       nickname: '游客' // 用户昵称
     }
   },
   async created () {
-    // console.log(JSON.parse(localStorage.getItem('HAOKE_USER')));
-    const token = JSON.parse(localStorage.getItem('HAOKE_USER')).token
-    const res = await getUserApi(token)
-    // console.log(res);
-    this.status = 1
-    this.avatar = res.data.body.avatar
-    this.nickname = res.data.body.nickname
+    try {
+      // console.log(JSON.parse(localStorage.getItem('HAOKE_USER')));
+      // const token = JSON.parse(localStorage.getItem('HAOKE_USER')).token
+      const token = this.$store.state.user.token
+      const res = await getUserApi(token)
+      // console.log(res);
+      this.status = 1
+      this.bg = res.data.body.avatar
+      this.avatar = res.data.body.avatar
+      this.nickname = res.data.body.nickname
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
 </script>

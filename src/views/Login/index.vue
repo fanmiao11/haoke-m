@@ -32,37 +32,42 @@ export default {
       this.$router.back()
     },
     async loginFn () {
-      const usernameRegExp = /^[a-zA-Z0-9]{5,8}$/
-      const passwordRegExp = /^[a-zA-Z0-9]{5,12}$/
-      //   console.log('submit', values)
-      if (this.username.trim() === '' || this.password.trim() === '') {
-        this.$toast('用户名和密码不能为空')
-      } else if (!usernameRegExp.test(this.username)) {
-        this.toast('用户名格式5-8位的字母和数字')
-      } else if (!passwordRegExp.test(this.password)) {
-        this.toast('密码格式5-12位的字母和数字')
-      } else if (usernameRegExp.test(this.username) && passwordRegExp.test(this.password)) {
-        this.$toast.loading({ message: '加载中...', forbidClick: true })
-        const res = await loginApi(this.username, this.password)
-        // console.log(res)
-        if (res.status === 200) {
+      try {
+        const usernameRegExp = /^[a-zA-Z0-9]{5,8}$/
+        const passwordRegExp = /^[a-zA-Z0-9]{5,12}$/
+        //   console.log('submit', values)
+        if (this.username.trim() === '' || this.password.trim() === '') {
+          this.$toast('用户名和密码不能为空')
+        } else if (!usernameRegExp.test(this.username)) {
+          this.toast('用户名格式5-8位的字母和数字')
+        } else if (!passwordRegExp.test(this.password)) {
+          this.toast('密码格式5-12位的字母和数字')
+        } else if (usernameRegExp.test(this.username) && passwordRegExp.test(this.password)) {
+          this.$toast.loading({ message: '加载中...', forbidClick: true })
+          const res = await loginApi(this.username, this.password)
+          // console.log(res)
+          if (res.status === 200) {
           // 存入token
-          localStorage.setItem('HAOKE_USER', JSON.stringify(res.data.body))
-          this.$toast.success({
-            onClose: () => {
-              this.$router.push({
-                path: '/layout/my'
-              })
+          // localStorage.setItem('HAOKE_USER', JSON.stringify(res.data.body))
+            this.$store.commit('setUser', res.data.body)
+            this.$toast.success({
+              onClose: () => {
+                this.$router.push({
+                  path: '/layout/my'
+                })
               // console.log(111);
-            },
-            message: '登录成功'
-          })
+              },
+              message: '登录成功'
+            })
           // this.$router.push({
           //   path: '/my'
           // })
-        } else {
-          this.$toast.fail('登录失败')
+          } else {
+            this.$toast.fail('登录失败')
+          }
         }
+      } catch (e) {
+        console.log(e.message)
       }
     }
   }

@@ -28,6 +28,10 @@ const routes = [
     ]
   },
   {
+    path: '/favorite',
+    component: () => import('@/views/Favorite')
+  },
+  {
     path: '/login',
     component: () => import('@/views/Login')
   },

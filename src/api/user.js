@@ -33,3 +33,30 @@ export const getUserApi = (token) => {
     }
   })
 }
+
+// /user/favorites 查看收藏列表
+
+export const getFavoritesApi = (token) => {
+  return request({
+    url: '/user/favorites',
+    headers: {
+      authorization: token
+    }
+  })
+}
+// GET /user/favorites/{id} 房屋是否收藏
+
+export const getIsFavoritesApi = (token, id) => {
+  return request({
+    url: '/user/favorites',
+    headers: {
+      authorization: token
+    },
+    params: {
+      id
+    }
+  })
+}
+
+// POST /user/favorites/{id} 添加收藏
+// DELETE /user/favorites/{id} 删除收藏
