@@ -60,3 +60,13 @@ export const getIsFavoritesApi = (token, id) => {
 
 // POST /user/favorites/{id} 添加收藏
 // DELETE /user/favorites/{id} 删除收藏
+
+// 查看已发布房源
+export const getRentedApi = (token) => {
+  return request({
+    url: '/user/houses',
+    headers: {
+      authorization: token
+    }
+  })
+}

@@ -48,7 +48,7 @@
         <div class="HouseDetail_infoBasicItem">
           <div>
             <span class="HouseDetail_infoBasicTitle">朝向：</span
-            >{{ houseDetail.oriented[0] }}
+            >{{ houseDetail.oriented && houseDetail.oriented[0] }}
           </div>
           <div>
             <span class="HouseDetail_infoBasicTitle">类型：</span>普通住宅

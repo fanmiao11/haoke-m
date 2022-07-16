@@ -5,6 +5,14 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/login',
+    component: () => import('@/views/Login')
+  },
+  {
+    path: '/',
+    redirect: '/layout'
+  },
+  {
     path: '/layout',
     component: () => import('@/views/Layout'),
     redirect: '/layout/home',
@@ -37,13 +45,15 @@ const routes = [
     component: () => import('@/views/Details')
   },
   {
-    path: '/login',
-    component: () => import('@/views/Login')
+    path: '/rented',
+    component: () => import('@/views/Rented')
   },
   {
-    path: '/',
-    redirect: '/layout'
+    path: '/rented/detail',
+    name: 'detail',
+    component: () => import('@/views/Details')
   }
+
 ]
 
 const router = new VueRouter({
