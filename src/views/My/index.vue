@@ -4,21 +4,10 @@
       <img style="width: 100%" :src="`http://liufusong.top:8080${bg}`" />
       <div class="My_info">
         <div class="My_icon">
-          <van-image
-            round
-            :src="`http://liufusong.top:8080${avatar}`"
-          />
+          <van-image round :src="`http://liufusong.top:8080${avatar}`" />
         </div>
-        <!-- status=0 未登录 -->
-        <div class="My_user" v-if="status === 0">
-          <div class="My_name">{{ nickname }}</div>
-          <div class="My_btn">
-            <van-button size="mini" class="user_btn" type="primary" to="/login">
-              去登录
-            </van-button>
-          </div>
-        </div>
-        <div class="My_user" v-else>
+        <!-- 登录状态 -->
+        <div class="My_user" v-if="isLogin">
           <div class="My_name">{{ nickname }}</div>
           <div class="My_btn">
             <van-button
@@ -34,17 +23,26 @@
             <span>编辑个人资料</span><van-icon name="play" />
           </div>
         </div>
+        <!-- 未登录状态 -->
+        <div class="My_user" v-else>
+          <div class="My_name">游客</div>
+          <div class="My_btn">
+            <van-button size="mini" class="user_btn" type="primary" to="/login">
+              去登录
+            </van-button>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="am-grid">
       <van-grid clickable :column-num="3">
         <van-grid-item
-          :to="status === 0 ? '/login' : '/favorite'"
+          :to="isLogin ? '/favorite' : '/login'"
           icon="star-o"
           text="我的收藏"
         />
-        <van-grid-item to="/" icon="wap-home-o" text="我的出租" />
+        <van-grid-item :to="isLogin ? '/rented' : '/login'" icon="wap-home-o" text="我的出租" />
         <van-grid-item to="/" icon="underway-o" text="看房记录" />
         <van-grid-item to="/" icon="credit-pay" text="成为房主" />
         <van-grid-item to="/" icon="manager-o" text="个人资料" />
@@ -61,13 +59,19 @@
 <script>
 import { getUserApi } from '@/api/user'
 export default {
+  computed: {
+    // 标识是否登录
+    isLogin () {
+      // !!转为布尔值
+      return !!this.$store.state.user.token
+    }
+  },
   data () {
     return {
-      status: 0, // 0未登录 1登录
       bg: '/img/profile/bg.png',
       avatar: '/img/profile/bg.png', // 背景图
 
-      nickname: '游客' // 用户昵称
+      nickname: '' // 用户昵称
     }
   },
   async created () {
@@ -77,7 +81,6 @@ export default {
       const token = this.$store.state.user.token
       const res = await getUserApi(token)
       // console.log(res);
-      this.status = 1
       this.bg = res.data.body.avatar
       this.avatar = res.data.body.avatar
       this.nickname = res.data.body.nickname

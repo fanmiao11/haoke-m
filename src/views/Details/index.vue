@@ -56,7 +56,12 @@
         </div>
       </div>
     </div>
-    <div class="HouseDetail_map"></div>
+    <div class="HouseDetail_map">
+      <div class="HouseDetail_mapTitle">
+        小区：<span>天山星城</span>
+      </div>
+      <div class="HouseDetail_mapContainer"></div>
+    </div>
     <!-- <div class="HouseDetail_about"></div>
     <div class="HouseDetail_set"></div>
     <div class="HouseDetail_recommend"></div> -->
@@ -76,7 +81,9 @@ export default {
   async created () {
     // console.log();
     try {
-      const res = await getHouseApi(this.$route.params.code)
+      const code = JSON.parse(localStorage.getItem('HAOKE_CURRENTHOUSE_CODE'))
+      // const res = await getHouseApi(this.$route.params.code)
+      const res = await getHouseApi(code)
       // console.log(res)
       this.houseDetail = res.data.body
       console.log(this.houseDetail)
@@ -87,6 +94,7 @@ export default {
   methods: {
     backPrePage () {
       this.$router.back()
+      localStorage.setItem('HAOKE_CURRENTHOUSE_CODE', '')
     }
   }
 }
@@ -95,6 +103,10 @@ export default {
 <style lang="less" scoped>
 * {
   box-sizing: border-box;
+}
+body{
+  background-color: #f5f5f9;
+
 }
 /deep/.van-nav-bar {
   background-color: #21b97a;
@@ -176,6 +188,9 @@ export default {
         line-height: 26px;
       }
     }
+  }
+  .HouseDetail_map{
+    margin-top: 10px;
   }
 }
 </style>

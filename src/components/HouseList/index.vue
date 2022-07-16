@@ -38,9 +38,10 @@ export default {
   },
   methods: {
     toDetailsFn (code) {
+      localStorage.setItem('HAOKE_CURRENTHOUSE_CODE', JSON.stringify(code))
       this.$router.push({
-        name: 'detail',
-        params: { code }
+        name: 'detail'
+        // params: { code }
       })
     }
   }
