@@ -6,3 +6,13 @@ export const getSwiperApi = () => {
     url: '/home/swiper'
   })
 }
+
+// 租房小组
+export const getGroupsApi = () => {
+  return request({
+    url: '/home/groups',
+    query: {
+      area: 'AREA%257C88cff55c-aaa4-e2e0'
+    }
+  })
+}
