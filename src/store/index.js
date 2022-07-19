@@ -8,7 +8,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     // user: storage.get('HAOKE_TOKEN') ||{}
-    user: getToken() || {}
+    user: getToken() || {},
+    currentCity: '北京',
+    currentCityValue: 'AREA|88cff55c-aaa4-e2e0'
   },
 
   mutations: {
@@ -19,6 +21,12 @@ export default new Vuex.Store({
     },
     removeUser () {
       removeToken()
+    },
+    setCurrentCity (state, payload) {
+      state.currentCity = payload
+    },
+    setCurrentCityValue (state, payload) {
+      state.currentCityValue = payload
     }
   }
 

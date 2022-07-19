@@ -3,7 +3,7 @@
     <!-- search -->
     <div class="search_box">
       <div class="search">
-        <span class="left">北京 <van-icon name="arrow-down" /></span>
+        <span class="left" @click="toCityFn">{{$store.state.currentCity}} <van-icon name="arrow-down" /></span>
         <van-search
           class="right"
           v-model="value"
@@ -66,16 +66,19 @@ export default {
   },
   methods: {
     onSearch () {},
-    location () {}
+    location () {},
+    toCityFn () {
+      this.$router.push('/city')
+    }
   },
   async created () {
     const res = await getSwiperApi()
     // console.log(res.data.body)
     this.swipe = res.data.body
 
-    const {
-      data: { body }
-    } = await getGroupsApi()
+    const { data: { body } } = await getGroupsApi(this.$store.state.currentCityValue)
+    console.log(this.$store.state.currentCityValue)
+    // const {data: { body }} = await getGroupsApi('AREA|0ee75d32-8a95-3f73')
     // console.log(body);
     this.groups = body
   }

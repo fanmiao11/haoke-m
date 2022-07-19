@@ -40,7 +40,7 @@ const routes = [
     component: () => import('@/views/Favorite')
   },
   {
-    path: '/favorite/detail',
+    path: '/detail',
     name: 'detail',
     component: () => import('@/views/Details')
   },
@@ -48,10 +48,15 @@ const routes = [
     path: '/rented',
     component: () => import('@/views/Rented')
   },
+  // {
+  //   path: '/rented/detail',
+  //   name: 'detail',
+  //   component: () => import('@/views/Details')
+  // },
   {
-    path: '/rented/detail',
-    name: 'detail',
-    component: () => import('@/views/Details')
+    path: '/city',
+    name: 'city',
+    component: () => import('@/views/City')
   }
 
 ]
