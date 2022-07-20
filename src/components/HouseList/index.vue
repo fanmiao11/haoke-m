@@ -79,6 +79,8 @@ export default {
       text-overflow: ellipsis;
       white-space: nowrap;
       vertical-align: middle;
+      font-size: 12px;
+      color: #afb2b3;
     }
     .HouseItem_tag {
       color: #39becd;
