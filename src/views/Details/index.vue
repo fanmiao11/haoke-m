@@ -160,8 +160,6 @@
 import { getHouseApi } from '@/api/house'
 import { BASE_URL } from '@/utils'
 import HouseList from '@/components/HouseList'
-// 引入字体图标
-import './font/iconfont.css'
 
 export default {
   components: { HouseList },
